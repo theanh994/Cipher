@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mã hóa & Giải mã</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="section">
+            <h2>Plaintext</h2>
+            <textarea id="plaintext" placeholder="Nhập bản rõ..."></textarea>
+            <input type="file" id="plaintextFile" onchange="loadFile('plaintext')">
+        </div>
+        
+        <div class="section">
+            <h2>Mã hóa & Giải mã</h2>
+            
+            <select id="cipherMethod" onchange="updateKey()">
+                <option value="caesar">Mã Caesar</option>
+                <option value="affine">Mã Affine</option>
+                <option value="vigenere">Mã Vigenère</option>
+                <option value="hill">Mã Hill</option>
+                <option value="des">Mã DES</option>
+                <option value="aes">Mã AES</option>
+                <option value="rsa">Mã RSA</option>
+            </select>
+            
+            <h3>Chọn chế độ</h3>
+            <select id="mode" onchange="toggleInputFields()">
+                <option value="encode">Mã hóa</option>
+                <option value="decode">Giải mã</option>
+            </select>
+            
+            <h3>Bảng ký tự</h3>
+            <select id="alphabetMode">
+                <option value="alphabet">Bảng chữ cái</option>
+                <option value="ascii">Bảng mã ASCII</option>
+            </select>
+            
+            <div id="caesar-options">
+                <h3>Khóa</h3>
+                <input type="number" id="key" value="3">
+            </div>
+
+            <div id="affine-options" class="hidden">
+                <h3>Hệ số A</h3>
+                <input type="number" id="affineA" value="7">
+                <h3>Hệ số B</h3>
+                <input type="number" id="affineB" value="11">
+            </div>
+
+            <div id="vigenere-options" class="hidden">
+                <h3>Khóa</h3>
+                <input type="text" id="vigenereKey" placeholder="Nhập khóa chữ...">
+            </div>            
+            <div id="hill-options" class="hidden">
+                <h3>Ma trận khóa (dạng CSV, VD: 6,24,1,13,16,10,20,17,15)</h3>
+                <input type="text" id="hillKey" placeholder="Nhập ma trận khóa...">
+            </div>
+            <div id="des-options" class="hidden">
+                <h3>Khóa DES</h3>
+                <input type="text" id="desKey" placeholder="Nhập khóa">
+            </div>
+            <div id="aes-options" class="hidden">
+                <h3>Khóa AES</h3>
+                <input type="text" id="aesKey" placeholder="Nhập khóa AES">
+            </div>
+            <div id="rsa-options" class="hidden"> 
+                <h3>RSA Key Generator</h3>    <!--Khởi tạo khóa-->
+                <label for="p">Nhập số nguyên tố p:</label>
+                <input type="number" id="p"><br><br>
+            
+                <label for="q">Nhập số nguyên tố q:</label>
+                <input type="number" id="q"><br><br>
+            
+                <label for="e">Nhập số nguyên tố e:</label>
+                <input type="number" id="e"><br><br>
+            
+                <button onclick="rsaCipher()">Tạo khóa</button>
+                <p id="publicKey"></p>
+                <p id="privateKey"></p>
+            </div>
+            
+            <button onclick="processCipher()">Thực hiện</button>
+        </div>
+        
+        <div class="section">
+            <h2>Ciphertext</h2>
+            <textarea id="ciphertext" placeholder="Nhập bản mã..."></textarea>
+            <input type="file" id="ciphertextFile" onchange="loadFile('ciphertext')">
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="script1.js"></script>
+    <script src="script2.js"></script>
+    <script src="script3.js"></script>
+    <!-- Sử dụng thư viện CrytoJS để hỗ trợ DES và AES -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+
+</body>
+</html>
